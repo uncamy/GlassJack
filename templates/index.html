@@ -41,7 +41,7 @@ limitations under the License.
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">Glass Jack- black jac for Glass</a>
+      <a class="brand" href="#">Glass Jack- Hit Me!</a>
 
       <div class="nav-collapse collapse">
         <form class="navbar-form pull-right" action="/signout" method="post">
@@ -57,7 +57,7 @@ limitations under the License.
 
   <!-- Main hero unit for a primary marketing message or call to action -->
   <div class="hero-unit">
-    <h1>Your Recent Timeline</h1>
+    <h1>Should I stay or should I go?</h1>
     {% if message %}
     <span class="label label-warning">Message: {{ message }}</span>
     {% endif %}
@@ -95,15 +95,13 @@ limitations under the License.
     <div class="span4">
       <h2>Timeline</h2>
 
-      <p>When you first sign in, this Glassware inserts a welcome message. Use
-        these controls to insert more items into your timeline. Learn more about
-        the timeline APIs
+      <p>Let's play Glass Jack! 
         <a href="https://developers.google.com/glass/timeline">here</a></p>
 
 
       <form action="/" method="post">
         <input type="hidden" name="operation" value="insertItem">
-        <textarea name="message"> Let's play! </textarea><br/>
+        <textarea name="message"> Beat the dealer </textarea><br/>
         <button class="btn" type="submit">The above message</button>
       </form>
 
@@ -211,3 +209,4 @@ limitations under the License.
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
+ 
