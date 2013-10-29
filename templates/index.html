@@ -57,7 +57,7 @@ limitations under the License.
 
   <!-- Main hero unit for a primary marketing message or call to action -->
   <div class="hero-unit">
-    <h1>Should I stay or should I go?</h1>
+    <h1>Show me your hand</h1>
     {% if message %}
     <span class="label label-warning">Message: {{ message }}</span>
     {% endif %}
@@ -78,9 +78,11 @@ limitations under the License.
           <strong>Attachments: </strong>
           {% for attachment in timelineItem.attachments %}
             {% if attachment.contentType.startswith('image') %}
-            <img src="/attachmentproxy?attachment={{ attachment.id }}&timelineItem={{ timelineItem.id }}">
+           <img src="/attachmentproxy?attachment={{ attachment.id }}&timelineItem={{ timelineItem.id }}">
             {% else %}
             <a href="/attachmentproxy?attachment={{ attachment.id }}&timelineItem={{ timelineItem.id }}">Download</a>
+ 	
+
             {% endif %}
           {% endfor %}
         </li>
@@ -132,15 +134,14 @@ limitations under the License.
 
     <div class="span4">
       <h2>Contacts</h2>
-      <p>By default, this project inserts a single contact that accepts
-      all content types. Learn more about contacts
+      <p>Send your hand to Glass Jack
         <a href="https://developers.google.com/glass/contacts">here</a>.</p>
 
       {% if contact %}
       <form class="span3" action="/"
             method="post">
         <input type="hidden" name="operation" value="deleteContact">
-        <input type="hidden" name="id" value="Python Quick Start">
+        <input type="hidden" name="id" value="Glass Jack">
         <button class="btn" type="submit">Delete Python Quick Start Contact
         </button>
       </form>
@@ -151,7 +152,7 @@ limitations under the License.
         <input type="hidden" name="imageUrl"
                value="/static/images/python.png">
         <input type="hidden" name="name"
-               value="Python Quick Start">
+               value="Glass Jack">
         <button class="btn" type="submit">Insert Python Quick Start Contact
         </button>
       </form>
