@@ -1,8 +1,7 @@
-
 # This file uses image recognition to identify the cards that are currently on the table
 import cv2
 import numpy as np
-sys.path.insert(0, "/usr/local/lib/python2.7/site-packages/") 
+sys.path.insert(0, "/usr/local/lib/python2.7/site-packages/")
 
 #numcards = 56
 
@@ -55,14 +54,14 @@ def getCards(im, numcards=4):
     #find the contours
     contours, hierarchy =cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     contours = sorted(contours, key= cv2.contourArea, reverse =True) [:numcards]
-    
+
     for card in contours:
         peri = cv2.arcLength(card, True)
         approx = rectify(cv2.approxPolyDP(card, 0.02*peri, True))
         h = np.array([ [0,0],[449,0],[449,449],[0,449] ],np.float32)
         transform = cv2.getPerspectiveTransform(approx,h)
         warp =cv2.warpPerspective(img, transform, (450, 450))
-        
+
         yield warp
 
     #contour_img = cv2.drawContours(img, contours,  -1, (0,255,0),3)
@@ -78,7 +77,7 @@ def get_training(training_labels_filename, training_image_filenem, num_trainingc
 
     im = cv2.imread(training_image_filename)
     for i, c in enumerate(getCards(im, num_training_cards)):
-        if avoid_cards is None or (labels[i][0] no in avoid_cards[0] and labels[i][1] not in avoid_cards[1]):
+        if avoid_cards is None or (labels[i][0] not in avoid_cards[0] and labels[i][1] not in avoid_cards[1]):
             training[i] = (labels[i], preprocess(c))
     print "Done Training"
     return training
@@ -90,8 +89,8 @@ if __name__ == '__main__':
         training_image_filename = sys.argv[3]
         training_labels_filename = sys.argv[4]
         num_training_Cards = int(sys.argv[5])
-        
-        training = get_training(training_labels_filename, training_image_filename, num_training_cards) 
+
+        training = get_training(training_labels_filename, training_image_filename, num_training_cards)
         im = cv2.imread(filename)
         width = im.shape[0]
         height = im.shape[1]
@@ -110,8 +109,6 @@ def display_image(image):
     cv2.imshow('Display Window', image)
 
 
-    
 
-#display_image(img) 
- 
 
+#display_image(img)
