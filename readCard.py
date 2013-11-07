@@ -89,7 +89,7 @@ def get_training(training_labels_filename, training_image_filename,\
 def main():
     filename = sys.argv[1]
     training_image_filename = sys.argv[2]
-    training_labels_filename = sys.argv[3]
+    training_labels_filename = 'images/train.tsv'
     num_cards = 4
     num_training_cards = 56
 
