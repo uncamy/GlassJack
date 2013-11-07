@@ -88,10 +88,10 @@ def get_training(training_labels_filename, training_image_filename,\
 
 def main():
     filename = sys.argv[1]
-    num_cards = int(sys.argv[2])
-    training_image_filename = sys.argv[3]
-    training_labels_filename = sys.argv[4]
-    num_training_cards = int(sys.argv[5])
+    training_image_filename = sys.argv[2]
+    training_labels_filename = sys.argv[3]
+    num_cards = 4
+    num_training_cards = 56
 
     training = get_training(training_labels_filename,\
                                 training_image_filename, num_training_cards)
