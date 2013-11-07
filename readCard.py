@@ -87,26 +87,24 @@ def get_training(training_labels_filename, training_image_filename,\
     return training
 
 def main():
-    if (len(sys.argv) == 6):
-        filename = sys.argv[1]
-        num_cards = int(sys.argv[2])
-        training_image_filename = sys.argv[3]
-        training_labels_filename = sys.argv[4]
-        num_training_cards = int(sys.argv[5])
+    filename = sys.argv[1]
+    num_cards = int(sys.argv[2])
+    training_image_filename = sys.argv[3]
+    training_labels_filename = sys.argv[4]
+    num_training_cards = int(sys.argv[5])
 
-        training = get_training(training_labels_filename,\
+    training = get_training(training_labels_filename,\
                                 training_image_filename, num_training_cards)
-        im = cv2.imread(filename)
-        width = im.shape[0]
-        height = im.shape[1]
-        if width < height:
-            im = cv2.transpose(im)
-            im = cv2.flip(im, 1)
+    im = cv2.imread(filename)
+    width = im.shape[0]
+    height = im.shape[1]
+    if width < height:
+        im = cv2.transpose(im)
+        im = cv2.flip(im, 1)
 
-        cards = [find_closest_card(training, c) for c in getCards(im, num_cards)]
-        print cards
-    else:
-        print __doc__
+    cards = [find_closest_card(training, c) for c in getCards(im, num_cards)]
+    print cards
+
 
 main()
 
