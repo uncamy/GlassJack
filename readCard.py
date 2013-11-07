@@ -86,7 +86,7 @@ def get_training(training_labels_filename, training_image_filename,\
     print "Done Training"
     return training
 
-if __name__ == '__main__':
+def main():
     if (len(sys.argv) == 6):
         filename = sys.argv[1]
         num_cards = int(sys.argv[2])
@@ -107,6 +107,9 @@ if __name__ == '__main__':
         print cards
     else:
         print __doc__
+
+main()
+
 #display image
 def display_image(image):
     """displays image in the python REPL"""
