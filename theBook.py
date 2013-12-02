@@ -28,9 +28,8 @@ data = [
  ['9,9', 'P', 'P', 'P', 'P', 'P', 'S', 'P', 'P', 'S', 'S'],
  ['10,10', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S', 'S']]
 
-card_book= {} 
+card_book= {}
 
 for col, dealer_card in enumerate(data[0][1:]):
     for row, hand in enumerate(line[0] for line in data[1:]):
         card_book[(hand, dealer_card)] = data[row+1][col+1]
-
