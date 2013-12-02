@@ -98,6 +98,7 @@ def main():
     im = cv2.imread(filename)
     width = im.shape[0]
     height = im.shape[1]
+    height = im.shape[1]
     if width < height:
         im = cv2.transpose(im)
         im = cv2.flip(im, 1)
