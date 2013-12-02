@@ -103,10 +103,8 @@ def main():
         im = cv2.flip(im, 1)
 
     cards = [find_closest_card(training, c) for c in getCards(im, num_cards)]
-    print cards
+    return cards
 
-
-main()
 
 #display image
 def display_image(image):
