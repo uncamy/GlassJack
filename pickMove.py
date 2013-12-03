@@ -6,7 +6,6 @@ from theBook import card_book
 test_ace =[('A', 'S', 'A'), ('J', 'H', '10'), ('3', 'H', '3')]
 test_pair =[('7', 'S', '7'), ('7', 'H', '7'), ('3', 'H', '3')]
 
-#refactor such that formatting doesn't need to be repeated for each case
 def score(cards):
     assert len(cards) == 3
     dealer_value = cards.pop()
@@ -28,7 +27,7 @@ def score(cards):
     return score_round
 
 def pick_move(score):
-    #match book to score re.match
+    """ match book to score"""
     move_choice = {'H': 'Hit!', 'D': 'Double Down!', 'S': 'Stand', 'P': 'Split'}
     return move_choice[card_book.get(score)]
 
@@ -39,9 +38,3 @@ def game_main():
   move= pick_move(scored)
   print move
   return move
-
-'''
-1. we need to processs the card to make sure they are in the right form
-2. search the dictionary for that pair
-3. return the correct move (H, D, S, P)
-'''
