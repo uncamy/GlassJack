@@ -18,6 +18,7 @@ def whos_card(cards):
     print 'Dealer\'s Hand is: %s' % dealer_hand
     return player_hand, dealer_hand
 
+#refactor such that formatting doesn't need to be repeated for each case
 def score(hand):
     if len(hand) > 1:
         if hand[0][0] == hand[0][1]:
@@ -40,12 +41,18 @@ def score(hand):
     print score_round
     return score_round
 
+def pick_move(score):
+    #match book to score re.match
+    move = card_book.get(score)
+    return move
+
 def main():
   cards = readCard.main()
   card_value = [x[2] for x in cards]
   card_owner = whos_card(card_value)
-  score(card_owner)
-
+  scored = score(card_owner)
+  move= pick_move(scored)
+  print move
 
 
 '''
