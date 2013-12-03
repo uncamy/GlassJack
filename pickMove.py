@@ -43,10 +43,18 @@ def score(hand):
 
 def pick_move(score):
     #match book to score re.match
-    move = card_book.get(score)
+    mv  = card_book.get(score)
+    if mv == 'H':
+        move = 'Hit!'
+    elif mv == 'D':
+        move = 'Double Down!'
+    elif mv == 'S':
+        move = 'Stand'
+    else:
+        move = 'Split'
     return move
 
-def main():
+def game_main():
   cards = readCard.main()
   card_value = [x[2] for x in cards]
   card_owner = whos_card(card_value)
