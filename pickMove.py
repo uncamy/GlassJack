@@ -7,7 +7,6 @@ test_ace =[('A', 'S', 'A'), ('J', 'H', '10'), ('3', 'H', '3')]
 test_pair =[('7', 'S', '7'), ('7', 'H', '7'), ('3', 'H', '3')]
 
 def score(cards):
-    assert len(cards) == 3
     dealer_value = cards.pop()
     player_hand = cards
 
@@ -15,7 +14,7 @@ def score(cards):
         print 'We have an Ace!'
         player_hand.sort(reverse=True) # move Ace to first spot
     elif player_hand[0] != player_hand[1]: # don't add doubles
-        player_hand = str(sum(int(card) for card in player_hand))
+        player_hand = [str(int(player_hand[0]) +int(player_hand[1]))]
 
     player_hand = ",".join(player_hand)
     print 'Your hand is %s' %player_hand
