@@ -53,7 +53,7 @@ def main():
   scored = score(card_owner)
   move= pick_move(scored)
   print move
-
+  return move
 
 '''
 1. we need to processs the card to make sure they are in the right form
