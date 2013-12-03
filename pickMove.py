@@ -34,7 +34,7 @@ def pick_move(score):
 
 def game_main():
   cards = readCard.main()
-  card_value = [x[2] for x in cards]
+  card_value = [card[2] for card in cards]
   scored = score(card_value)
   move= pick_move(scored)
   print move
