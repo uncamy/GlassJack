@@ -29,16 +29,8 @@ def score(cards):
 
 def pick_move(score):
     #match book to score re.match
-    mv  = card_book.get(score)
-    if mv == 'H':
-        move = 'Hit!'
-    elif mv == 'D':
-        move = 'Double Down!'
-    elif mv == 'S':
-        move = 'Stand'
-    else:
-        move = 'Split'
-    return move
+    move_choice = {'H': 'Hit!', 'D': 'Double Down!', 'S': 'Stand', 'P': 'Split'}
+    return move_choice[card_book.get(score)]
 
 def game_main():
   cards = readCard.main()
