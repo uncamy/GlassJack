@@ -73,7 +73,7 @@ class MainHandler(webapp2.RequestHandler):
     # self.mirror_service is initialized in util.auth_required.
     try:
       template_values['contact'] = self.mirror_service.contacts().get(
-        id='Glass Jack').execute()
+        id='Python Quick Start').execute()
     except errors.HttpError:
       logging.info('Unable to find Glass Jack.')
 
