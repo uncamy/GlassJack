@@ -31,10 +31,20 @@ def pick_move(score):
     move_choice = {'H': 'Hit!', 'D': 'Double Down!', 'S': 'Stand', 'P': 'Split'}
     return move_choice[card_book.get(score)]
 
+def process_cards(cards):
+    card_value = [card[2] for card in cards]
+    scored = score(card_value)
+    move= pick_move(scored)
+    print move
+    return move
+
 def game_main():
-  cards = readCard.main()
-  card_value = [card[2] for card in cards]
-  scored = score(card_value)
-  move= pick_move(scored)
-  print move
-  return move
+    cards = readCard.main()
+    return process_cards(cards)
+
+def test():
+    assert process_cards(test_ace) == "Stand"
+    assert process_cards(test_double) == "Split"
+
+if __name__ == '__main__':
+    test()
