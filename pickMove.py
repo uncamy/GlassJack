@@ -8,15 +8,12 @@ test_pair =[('7', 'S', '7'), ('7', 'H', '7'), ('3', 'H', '3')]
 
 #consider adding a turn count. this is not adequate for all game states
 def whos_card(cards):
-    if len(cards) <5:
-        player_hand = cards[:2]
-        dealer_hand = cards[2:]
-    else:
-        player_hand = cards[:3]
-        dealer_hand = cards[2:]
-    print 'Player\'s Hand is: %s' % player_hand
-    print 'Dealer\'s Hand is: %s' % dealer_hand
-    return player_hand, dealer_hand
+    assert len(cards) == 3
+    dealer_value = cards.pop()
+    player_hand = cards
+    print "Player's Hand is: %s" % player_hand
+    print "Dealer's Hand is: %s" % dealer_hand
+    return player_hand, dealer_value
 
 #refactor such that formatting doesn't need to be repeated for each case
 def score(hand):
