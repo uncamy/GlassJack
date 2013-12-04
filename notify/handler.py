@@ -81,7 +81,8 @@ class NotifyHandler(webapp2.RequestHandler):
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
-            'text': 'Echoing your shared item: %s' % item.get('text', ''),
+             'text': 'Amy posted this item!: %s' % item.get('text', ''),,
+            #'text': 'Echoing your shared item: %s' % item.get('text', ''),
             'notification': {'level': 'DEFAULT'}
         }
         self.mirror_service.timeline().insert(
