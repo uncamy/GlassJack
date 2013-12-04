@@ -14,9 +14,6 @@
 
 """Request Handler for /main endpoint."""
 
-__author__ = 'alainv@google.com (Alain Vongsouvanh)'
-
-
 import io
 import jinja2
 import logging
@@ -35,6 +32,7 @@ from oauth2client.appengine import StorageByKeyName
 from model import Credentials
 import util
 
+from pickMove import game_main
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -164,50 +162,6 @@ class MainHandler(webapp2.RequestHandler):
     self.mirror_service.timeline().insert(body=body, media_body=media).execute()
     return  'A timeline item has been inserted.'
 
-  def _insert_item_with_action(self):
-    """Insert a timeline item user can reply to."""
-    logging.info('Inserting timeline item')
-    body = {
-        'creator': {
-            'displayName': 'Python Starter Project',
-            'id': 'PYTHON_STARTER_PROJECT'
-        },
-        'text': 'Tell me what you had for lunch :)',
-        'notification': {'level': 'DEFAULT'},
-        'menuItems': [{'action': 'REPLY'}]
-    }
-    # self.mirror_service is initialized in util.auth_required.
-    self.mirror_service.timeline().insert(body=body).execute()
-    return 'A timeline item with action has been inserted.'
-
-  def _insert_item_all_users(self):
-    """Insert a timeline item to all authorized users."""
-    logging.info('Inserting timeline item to all users')
-    users = Credentials.all()
-    total_users = users.count()
-
-    if total_users > 10:
-      return 'Total user count is %d. Aborting broadcast to save your quota' % (
-          total_users)
-    body = {
-        'text': 'Hello Everyone!',
-        'notification': {'level': 'DEFAULT'}
-    }
-
-    batch_responses = _BatchCallback()
-    batch = BatchHttpRequest(callback=batch_responses.callback)
-    for user in users:
-      creds = StorageByKeyName(
-          Credentials, user.key().name(), 'credentials').get()
-      mirror_service = util.create_service('mirror', 'v1', creds)
-      batch.add(
-          mirror_service.timeline().insert(body=body),
-          request_id=user.key().name())
-
-    batch.execute(httplib2.Http())
-    return 'Successfully sent cards to %d users (%d failed).' % (
-        batch_responses.success, batch_responses.failure)
-
   def _insert_contact(self):
     """Insert a new Contact."""
     logging.info('Inserting contact')
@@ -234,7 +188,31 @@ class MainHandler(webapp2.RequestHandler):
         id=self.request.get('id')).execute()
     return 'Contact has been deleted.'
 
-
+  def sendMove():
+    """Send Move card """
+    body = {
+      "html": "<article style=\"left: 0px;
+         visibility: visible;\">\n
+         <section>\n
+        <div class=\"layout-two-column\">\n
+            <div class=\"align-center\">\n
+              <p> </p>\n
+                 <p class=\"text-large\">you: A5</p>\n
+                 <p class=\"text-large\">dealer: 7 \n </p>
+          </div>\n
+         <div class=\"align-center\">\n
+            <br>\n
+            <p class=\"text-x-large\">HIT!</p>\n
+        </div>\n
+       </div>\n
+        </section>\n
+         <footer>\n  <p>Glass Jack</p>\n
+         </footer>\n
+        </article>",
+      "notification": {
+        "level": "DEFAULT"
+      }
+    }
 MAIN_ROUTES = [
     ('/', MainHandler)
 ]
