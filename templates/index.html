@@ -12,8 +12,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
--->
-<!doctype html>
+--><!doctype html>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,7 +56,7 @@ limitations under the License.
 
   <!-- Main hero unit for a primary marketing message or call to action -->
   <div class="hero-unit">
-    <h1>Show me your hand</h1>
+    <h1>Testing timeline adds</h1>
     {% if message %}
     <span class="label label-warning">Message: {{ message }}</span>
     {% endif %}
@@ -99,111 +98,11 @@ limitations under the License.
 
       <p>Let's play Glass Jack!
         <a href="https://developers.google.com/glass/timeline">here</a></p>
-
-
       <form action="/" method="post">
         <input type="hidden" name="operation" value="insertItem">
-        <textarea name="message"> Beat the dealer </textarea><br/>
-        <button class="btn" type="submit">The above message</button>
+        <textarea name="message"> testing ability to run timeline </textarea><br/>
       </form>
-
-      <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertItem">
-        <input type="hidden" name="message"
-               value="Should we hit or stay?">
-        <input type="hidden" name="imageUrl"
-               value="/static/images/saturn-eclipse.jpg">
-        <input type="hidden" name="contentType" value="image/jpeg">
-
-        <button class="btn" type="submit">A picture
-          <img class="button-icon"
-               src="/static/images/saturn-eclipse.jpg">
-        </button>
-      </form>
-      <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertItemWithAction">
-        <button class="btn" type="submit">A card you can reply to</button>
-      </form>
-      <hr>
-      <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertItemAllUsers">
-        <button class="btn" type="submit">A card to all users</button>
-      </form>
-
     </div>
-
-    <div class="span4">
-      <h2>Contacts</h2>
-      <p>Send your hand to Glass Jack
-        <a href="https://developers.google.com/glass/contacts">here</a>.</p>
-
-      {% if contact %}
-      <form class="span3" action="/"
-            method="post">
-        <input type="hidden" name="operation" value="deleteContact">
-        <input type="hidden" name="id" value="Python Quick Start">
-        <button class="btn" type="submit">Delete Python Quick Start Contact
-        </button>
-      </form>
-      {% else %}
-      <form class="span3" action="/"
-            method="post">
-        <input type="hidden" name="operation" value="insertContact">
-        <input type="hidden" name="imageUrl"
-               value="/static/images/python.png">
-        <input type="hidden" name="name"
-               value="Python Quick Start">
-        <button class="btn" type="submit">Insert Python Quick Start Contact
-        </button>
-      </form>
-      {% endif %}
-    </div>
-
-    <div class="span4">
-      <h2>Subscriptions</h2>
-
-      <p>By default a subscription is inserted for changes to the
-        <code>timeline</code> collection. Learn more about subscriptions
-        <a href="https://developers.google.com/glass/subscriptions">here</a></p>
-
-      <p class="label label-info">Note: Subscriptions require SSL. <br>They will not work on localhost.</p>
-
-      {% if timelineSubscriptionExists %}
-      <form action="/"
-            method="post">
-        <input type="hidden" name="subscriptionId" value="timeline">
-        <input type="hidden" name="operation" value="deleteSubscription">
-        <button class="btn" type="submit" class="delete">Unsubscribe from
-          timeline updates
-        </button>
-      </form>
-      {% else %}
-      <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertSubscription">
-        <input type="hidden" name="collection" value="timeline">
-        <button class="btn" type="submit">Subscribe to timeline updates</button>
-      </form>
-      {% endif %}
-
-      {% if locationSubscriptionExists %}
-      <form action="/"
-            method="post">
-        <input type="hidden" name="subscriptionId" value="locations">
-        <input type="hidden" name="operation" value="deleteSubscription">
-        <button class="btn" type="submit" class="delete">Unsubscribe from
-          location updates
-        </button>
-      </form>
-      {% else %}
-      <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertSubscription">
-        <input type="hidden" name="collection" value="locations">
-        <button class="btn" type="submit">Subscribe to location updates</button>
-      </form>
-      {% endif %}
-    </div>
-  </div>
-</div>
 
 <script
     src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
