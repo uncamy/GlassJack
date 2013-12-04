@@ -1,19 +1,3 @@
-# Copyright (C) 2013 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""Request Handler for /main endpoint."""
-
 import io
 import jinja2
 import logging
@@ -32,33 +16,19 @@ from oauth2client.appengine import StorageByKeyName
 from model import Credentials
 import util
 
-from pickMove import game_main
-
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
-
-class _BatchCallback(object):
-  """Class used to track batch request responses."""
-
-  def __init__(self):
-    """Initialize a new _BatchCallbaclk object."""
-    self.success = 0
-    self.failure = 0
-
-  def callback(self, request_id, response, exception):
-    """Method called on each HTTP Response from a batch request.
-
-    For more information, see
-      https://developers.google.com/api-client-library/python/guide/batch
-    """
-    if exception is None:
-      self.success += 1
-    else:
-      self.failure += 1
-      logging.error(
-          'Failed to insert item for user %s: %s', request_id, exception)
-
+# simple timeline notification
+def send_move(self):
+    """Insert a timeline item."""
+    logging.info('Inserting timeline item')
+    body = {
+        'notification': {'level': 'DEFAULT'}
+    }
+    # self.mirror_service is initialized in util.auth_required.
+    self.mirror_service.timeline().insert(body=body).execute()
+    return  'A timeline item has been inserted.'
 
 class MainHandler(webapp2.RequestHandler):
   """Request Handler for the main endpoint."""
@@ -103,13 +73,7 @@ class MainHandler(webapp2.RequestHandler):
     operation = self.request.get('operation')
     # Dict of operations to easily map keys to methods.
     operations = {
-        'insertSubscription': self._insert_subscription,
-        'deleteSubscription': self._delete_subscription,
         'insertItem': self._insert_item,
-        'insertItemWithAction': self._insert_item_with_action,
-        'insertItemAllUsers': self._insert_item_all_users,
-        'insertContact': self._insert_contact,
-        'deleteContact': self._delete_contact
     }
     if operation in operations:
       message = operations[operation]()
@@ -119,100 +83,7 @@ class MainHandler(webapp2.RequestHandler):
     memcache.set(key=self.userid, value=message, time=5)
     self.redirect('/')
 
-  def _insert_subscription(self):
-    """Subscribe the app."""
-    # self.userid is initialized in util.auth_required.
-    body = {
-        'collection': self.request.get('collection', 'timeline'),
-        'userToken': self.userid,
-        'callbackUrl': util.get_full_url(self, '/notify')
-    }
-    # self.mirror_service is initialized in util.auth_required.
-    self.mirror_service.subscriptions().insert(body=body).execute()
-    return 'Application is now subscribed to updates.'
 
-  def _delete_subscription(self):
-    """Unsubscribe from notifications."""
-    collection = self.request.get('subscriptionId')
-    self.mirror_service.subscriptions().delete(id=collection).execute()
-    return 'Application has been unsubscribed.'
-
-  def _insert_item(self):
-    """Insert a timeline item."""
-    logging.info('Inserting timeline item')
-    body = {
-        'notification': {'level': 'DEFAULT'}
-    }
-    if self.request.get('html') == 'on':
-      body['html'] = [self.request.get('message')]
-    else:
-      body['text'] = self.request.get('message')
-
-    media_link = self.request.get('imageUrl')
-    if media_link:
-      if media_link.startswith('/'):
-        media_link = util.get_full_url(self, media_link)
-      resp = urlfetch.fetch(media_link, deadline=20)
-      media = MediaIoBaseUpload(
-          io.BytesIO(resp.content), mimetype='image/jpeg', resumable=True)
-    else:
-      media = None
-
-    # self.mirror_service is initialized in util.auth_required.
-    self.mirror_service.timeline().insert(body=body, media_body=media).execute()
-    return  'A timeline item has been inserted.'
-
-  def _insert_contact(self):
-    """Insert a new Contact."""
-    logging.info('Inserting contact')
-    name = self.request.get('name')
-    image_url = self.request.get('imageUrl')
-    if not name or not image_url:
-      return 'Must specify imageUrl and name to insert contact'
-    else:
-      if image_url.startswith('/'):
-        image_url = util.get_full_url(self, image_url)
-      body = {
-          'id': name,
-          'displayName': name,
-          'imageUrls': [image_url]
-      }
-      # self.mirror_service is initialized in util.auth_required.
-      self.mirror_service.contacts().insert(body=body).execute()
-      return 'Inserted contact: ' + name
-
-  def _delete_contact(self):
-    """Delete a Contact."""
-    # self.mirror_service is initialized in util.auth_required.
-    self.mirror_service.contacts().delete(
-        id=self.request.get('id')).execute()
-    return 'Contact has been deleted.'
-
-  def sendMove():
-    """Send Move card """
-    body = {
-      "html": "<article style=\"left: 0px;
-         visibility: visible;\">\n
-         <section>\n
-        <div class=\"layout-two-column\">\n
-            <div class=\"align-center\">\n
-              <p> </p>\n
-                 <p class=\"text-large\">you: A5</p>\n
-                 <p class=\"text-large\">dealer: 7 \n </p>
-          </div>\n
-         <div class=\"align-center\">\n
-            <br>\n
-            <p class=\"text-x-large\">HIT!</p>\n
-        </div>\n
-       </div>\n
-        </section>\n
-         <footer>\n  <p>Glass Jack</p>\n
-         </footer>\n
-        </article>",
-      "notification": {
-        "level": "DEFAULT"
-      }
-    }
 MAIN_ROUTES = [
     ('/', MainHandler)
 ]
