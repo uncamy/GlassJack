@@ -82,7 +82,6 @@ class NotifyHandler(webapp2.RequestHandler):
               attachment['contentUrl'])
 
 
-
           if resp.status == 200:
             media = MediaIoBaseUpload(
                 io.BytesIO(content), attachment['contentType'],
@@ -107,15 +106,11 @@ class NotifyHandler(webapp2.RequestHandler):
           #    <footer>\n
           #       <p>Glass Jack</p>\n
           #    </footer>\n</article>",
-          "text": "Hit me!",
+          "text": "Glass Jack is processing your image: %s" % attachment['contentUrl'],
           "notification": {
              "level": "DEFAULT"
           }
         }
-
-            # 'text': 'Image came back!!: %s' % item.get('text', ''),
-            # #'text': 'Echoing your shared item: %s' % item.get('text', ''),
-            # 'notification': {'level': 'DEFAULT'}
 
         self.mirror_service.timeline().insert(
             body=body, media_body=media).execute()
