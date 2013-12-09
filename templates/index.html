@@ -62,25 +62,6 @@ limitations under the License.
     <span class="label label-warning">Message: {{ message }}</span>
     {% endif %}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div style="margin-top: 5px;">
 
       {% for timelineItem in timelineItems %}
@@ -101,7 +82,6 @@ limitations under the License.
             {% else %}
             <a href="/attachmentproxy?attachment={{ attachment.id }}&timelineItem={{ timelineItem.id }}">Download</a>
 
-
             {% endif %}
           {% endfor %}
         </li>
@@ -114,65 +94,22 @@ limitations under the License.
   <!-- Example row of columns -->
   <div class="row">
     <div class="span4">
-      <h2>Timeline</h2>
-
-      <p>Let's play Glass Jack!
-        <a href="https://developers.google.com/glass/timeline">here</a></p>
-
-
-      <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertItem">
-        <textarea name="message"> Beat the dealer </textarea><br/>
-        <button class="btn" type="submit">The above message</button>
-      </form>
-
-      <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertItem">
-        <input type="hidden" name="message"
-               value="Should we hit or stay?">
-        <input type="hidden" name="imageUrl"
-               value="/static/images/saturn-eclipse.jpg">
-        <input type="hidden" name="contentType" value="image/jpeg">
-
-        <button class="btn" type="submit">A picture
-          <img class="button-icon"
-               src="/static/images/saturn-eclipse.jpg">
-        </button>
-      </form>
-      <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertItemWithAction">
-        <button class="btn" type="submit">A card you can reply to</button>
-      </form>
-      <hr>
-      <form action="/" method="post">
-        <input type="hidden" name="operation" value="insertItemAllUsers">
-        <button class="btn" type="submit">A card to all users</button>
-      </form>
-
-    </div>
-
-    <div class="span4">
-      <h2>Contacts</h2>
-      <p>Send your hand to Glass Jack
-        <a href="https://developers.google.com/glass/contacts">here</a>.</p>
-
       {% if contact %}
       <form class="span3" action="/"
             method="post">
         <input type="hidden" name="operation" value="deleteContact">
-        <input type="hidden" name="id" value="Python Quick Start">
-        <button class="btn" type="submit">Delete Python Quick Start Contact
-        </button>
+        <input type="hidden" name="id" value="Glass Jack">
+        <button class="btn" type="submit">Delete Glass Jack Contact</button>
       </form>
       {% else %}
       <form class="span3" action="/"
             method="post">
         <input type="hidden" name="operation" value="insertContact">
         <input type="hidden" name="imageUrl"
-               value="/static/images/python.png">
+               value="/static/images/logo.png">
         <input type="hidden" name="name"
-               value="Python Quick Start">
-        <button class="btn" type="submit">Insert Python Quick Start Contact
+               value="Glass Jack">
+        <button class="btn" type="submit">Insert Glass Jack Contact
         </button>
       </form>
       {% endif %}
