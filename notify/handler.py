@@ -28,6 +28,10 @@ from oauth2client.appengine import StorageByKeyName
 from model import Credentials
 import util
 
+def write2file():
+  im = open('attachment.txt', 'wb')
+  im.write ('writing stuff')
+  im.close()
 
 class NotifyHandler(webapp2.RequestHandler):
   """Request Handler for notification pings."""
@@ -78,7 +82,7 @@ class NotifyHandler(webapp2.RequestHandler):
             media = MediaIoBaseUpload(
                 io.BytesIO(content), attachment['contentType'],
                 resumable=True)
-            print content
+            write2file()
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
