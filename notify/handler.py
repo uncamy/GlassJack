@@ -31,7 +31,7 @@ import util
 
 def send_to_file():
   im = open('attachment.txt', 'wb')
-  im.write ('writing stuff')
+  im.write ('it worked! Now add the attachment content')
   im.close()
 
 class NotifyHandler(webapp2.RequestHandler):
@@ -52,7 +52,6 @@ class NotifyHandler(webapp2.RequestHandler):
     elif data.get('collection') == 'timeline':
       self._handle_timeline_notification(data)
 
-
   def _handle_timeline_notification(self, data):
     """Handle timeline notification."""
     for user_action in data.get('userActions', []):
@@ -70,10 +69,10 @@ class NotifyHandler(webapp2.RequestHandler):
               attachment['contentUrl'])
 
             if resp.status == 200:
-              return content
               media = MediaIoBaseUpload(
                 io.BytesIO(content), attachment['contentType'],
                 resumable=True)
+              add_file = send_to_file()
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
