@@ -66,6 +66,7 @@ class NotifyHandler(webapp2.RequestHandler):
         # Fetch the timeline item.
         item = self.mirror_service.timeline().get(id=data['itemId']).execute()
         attachments = item.get('attachments', [])
+        contentURL= attachment['contentUrl']
         media = None
         if attachments:
           # Get the first attachment on that timeline item and do stuff with it.
@@ -81,7 +82,7 @@ class NotifyHandler(webapp2.RequestHandler):
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
-            'text': 'Amy put this here!: %s' % item.get('text', ''),
+            'text': 'Image Url %s: %s' % (contentURL, item.get('text', '')),
             #'text': 'Echoing your shared item: %s' % item.get('text', ''),
             'notification': {'level': 'DEFAULT'}
         }
