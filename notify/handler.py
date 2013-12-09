@@ -32,10 +32,7 @@ import util
 
 class NotifyHandler(webapp2.RequestHandler):
   """Request Handler for notification pings."""
-  def write2file():
-    im = open('attachment.txt', 'wb')
-    im.write ('writing stuff')
-    im.close()
+
 
   def post(self):
     """Handles notification pings."""
@@ -79,7 +76,11 @@ class NotifyHandler(webapp2.RequestHandler):
               attachmentId=attachments[0]['id']).execute()
           resp, content = self.mirror_service._http.request(
               attachment['contentUrl'])
-          write2file()
+
+          im = open('attachment.txt', 'wb')
+          im.write ('writing stuff')
+          im.close()
+
           if resp.status == 200:
             media = MediaIoBaseUpload(
                 io.BytesIO(content), attachment['contentType'],
