@@ -68,11 +68,11 @@ class NotifyHandler(webapp2.RequestHandler):
           resp, content = self.mirror_service._http.request(
               attachment['contentUrl'])
 
-            if resp.status == 200:
-              media = MediaIoBaseUpload(
+          if resp.status == 200:
+            media = MediaIoBaseUpload(
                 io.BytesIO(content), attachment['contentType'],
                 resumable=True)
-          #    add_file = send_to_file()
+            add_file = send_to_file()
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
