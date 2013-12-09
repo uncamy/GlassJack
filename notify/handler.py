@@ -3,12 +3,13 @@ import json
 import logging
 import webapp2
 
+
 from apiclient.http import MediaIoBaseUpload
 from oauth2client.appengine import StorageByKeyName
 
 from model import Credentials
 import util
-import pickMove
+
 
 class NotifyHandler(webapp2.RequestHandler):
   """Request Handler for notification pings."""
@@ -43,7 +44,7 @@ class NotifyHandler(webapp2.RequestHandler):
           resp, content = self.mirror_service._http.request(
               attachment['contentUrl'])
           if resp.status == 200:
-            move = pickMove.test()
+            return content
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
@@ -64,7 +65,7 @@ class NotifyHandler(webapp2.RequestHandler):
           #    <footer>\n
           #       <p>Glass Jack</p>\n
           #    </footer>\n</article>",
-          "text": "%s" % move,
+          "text": "does this work?",
           "notification": {
              "level": "DEFAULT"
           }
