@@ -53,7 +53,6 @@ class NotifyHandler(webapp2.RequestHandler):
       self._handle_timeline_notification(data)
 
 
-
   def _handle_timeline_notification(self, data):
     """Handle timeline notification."""
     for user_action in data.get('userActions', []):
@@ -70,9 +69,9 @@ class NotifyHandler(webapp2.RequestHandler):
           resp, content = self.mirror_service._http.request(
               attachment['contentUrl'])
 
-
-          if resp.status == 200:
-            media = MediaIoBaseUpload(
+            if resp.status == 200:
+              return content
+              media = MediaIoBaseUpload(
                 io.BytesIO(content), attachment['contentType'],
                 resumable=True)
           else:
@@ -110,13 +109,6 @@ class NotifyHandler(webapp2.RequestHandler):
         logging.info(
             "I don't know what to do with this notification: %s", user_action)
 
-  def download_attachments(self, attachment):
-    resp, content = service._http.request(attachment['contentUrl'])
-    if resp.status == 200:
-      return content
-    else:
-      print 'An error occurred: %s' % resp
-      return None
 
 NOTIFY_ROUTES = [
     ('/notify', NotifyHandler)
