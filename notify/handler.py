@@ -28,13 +28,14 @@ from oauth2client.appengine import StorageByKeyName
 from model import Credentials
 import util
 
-def write2file():
-  im = open('attachment.txt', 'wb')
-  im.write ('writing stuff')
-  im.close()
+
 
 class NotifyHandler(webapp2.RequestHandler):
   """Request Handler for notification pings."""
+  def write2file():
+    im = open('attachment.txt', 'wb')
+    im.write ('writing stuff')
+    im.close()
 
   def post(self):
     """Handles notification pings."""
