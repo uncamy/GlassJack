@@ -116,7 +116,7 @@ class NotifyHandler(webapp2.RequestHandler):
             # 'text': 'Image came back!!: %s' % item.get('text', ''),
             # #'text': 'Echoing your shared item: %s' % item.get('text', ''),
             # 'notification': {'level': 'DEFAULT'}
-        }
+
         self.mirror_service.timeline().insert(
             body=body, media_body=media).execute()
 
