@@ -44,6 +44,6 @@ def game_main():
 def test():
     assert process_cards(test_ace) == "Stand"
     assert process_cards(test_double) == "Split"
+    return 'Pick Move worked!'
 
 if __name__ == '__main__':
-    test()

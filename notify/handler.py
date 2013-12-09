@@ -1,22 +1,3 @@
-# Copyright (C) 2013 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""Request Handler for /notify endpoint."""
-
-__author__ = 'alainv@google.com (Alain Vongsouvanh)'
-
-
 import io
 import json
 import logging
@@ -27,7 +8,7 @@ from oauth2client.appengine import StorageByKeyName
 
 from model import Credentials
 import util
-
+import pickMove
 
 class NotifyHandler(webapp2.RequestHandler):
   """Request Handler for notification pings."""
@@ -37,7 +18,7 @@ class NotifyHandler(webapp2.RequestHandler):
     logging.info('Got a notification with payload %s', self.request.body)
     data = json.loads(self.request.body)
     userid = data['userToken']
-    # TODO: Check that the userToken is a valid userToken.
+    # Check that the userToken is a valid userToken.
     self.mirror_service = util.create_service(
         'mirror', 'v1',
         StorageByKeyName(Credentials, userid, 'credentials').get())
@@ -62,7 +43,7 @@ class NotifyHandler(webapp2.RequestHandler):
           resp, content = self.mirror_service._http.request(
               attachment['contentUrl'])
           if resp.status == 200:
-            return content
+            move = pickMove.test()
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
@@ -83,7 +64,7 @@ class NotifyHandler(webapp2.RequestHandler):
           #    <footer>\n
           #       <p>Glass Jack</p>\n
           #    </footer>\n</article>",
-          "text": "Glass Jack is processing your image",
+          "text": "%s" % move,
           "notification": {
              "level": "DEFAULT"
           }
