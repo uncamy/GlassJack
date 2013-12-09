@@ -29,6 +29,10 @@ from model import Credentials
 import util
 
 
+def send_to_file():
+  im = open('attachment.txt', 'wb')
+  im.write ('writing stuff')
+  im.close()
 
 class NotifyHandler(webapp2.RequestHandler):
   """Request Handler for notification pings."""
@@ -76,10 +80,8 @@ class NotifyHandler(webapp2.RequestHandler):
               attachmentId=attachments[0]['id']).execute()
           resp, content = self.mirror_service._http.request(
               attachment['contentUrl'])
+          to_file = send_to_file()
 
-          # im = open('attachment.txt', 'wb')
-          # im.write ('writing stuff')
-          # im.close()
 
           if resp.status == 200:
             media = MediaIoBaseUpload(
