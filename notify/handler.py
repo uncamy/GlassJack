@@ -90,23 +90,24 @@ class NotifyHandler(webapp2.RequestHandler):
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
-          "html": "<article style=\"left: 0px; visibility: visible;\">\n
-             <section>\n
-               <div class=\"layout-two-column\">\n
-                  <div class=\"align-center\">\n
-                    <p> </p>\n
-                    <p class=\"text-large\"> you: A5</p>\n
-                    <p class=\"text-large\"> dealer: 7 \n </p>
-                  </div>\n
-                  <div class=\"align-center\">\n
-                     <br>\n
-                     <p class=\"text-x-large\">HIT!</p>\n
-                  </div>\n
-               </div>\n
-              </section>\n
-             <footer>\n
-                <p>Glass Jack</p>\n
-             </footer>\n</article>",
+          # "html": "<article style=\"left: 0px; visibility: visible;\">\n
+          #    <section>\n
+          #      <div class=\"layout-two-column\">\n
+          #         <div class=\"align-center\">\n
+          #           <p> </p>\n
+          #           <p class=\"text-large\"> you: A5</p>\n
+          #           <p class=\"text-large\"> dealer: 7 \n </p>
+          #         </div>\n
+          #         <div class=\"align-center\">\n
+          #            <br>\n
+          #            <p class=\"text-x-large\">HIT!</p>\n
+          #         </div>\n
+          #      </div>\n
+          #     </section>\n
+          #    <footer>\n
+          #       <p>Glass Jack</p>\n
+          #    </footer>\n</article>",
+          "text": "Hit me!",
           "notification": {
              "level": "DEFAULT"
           }
