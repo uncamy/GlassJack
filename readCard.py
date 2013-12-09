@@ -4,7 +4,6 @@ import sys
 import numpy as np
 import imp
 
-import notify.handler as notify
 
 
 #numcards = 56
@@ -90,7 +89,7 @@ def get_training(training_labels_filename, training_image_filename,\
     return training
 
 def main():
-    cards = notify.NotifyHandler
+    filename = 'images/test.jpg'
     training_image_filename = 'images/train.png'
     training_labels_filename = 'images/train.tsv'
     num_cards = 4
@@ -98,7 +97,7 @@ def main():
 
     training = get_training(training_labels_filename,\
                                 training_image_filename, num_training_cards)
-    im = cv2.imread(cards)
+    im = cv2.imread(filename)
     width = im.shape[0]
     height = im.shape[1]
     height = im.shape[1]
