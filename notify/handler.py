@@ -80,7 +80,7 @@ class NotifyHandler(webapp2.RequestHandler):
               attachmentId=attachments[0]['id']).execute()
           resp, content = self.mirror_service._http.request(
               attachment['contentUrl'])
-          to_file = send_to_file()
+
 
 
           if resp.status == 200:
@@ -96,6 +96,8 @@ class NotifyHandler(webapp2.RequestHandler):
         }
         self.mirror_service.timeline().insert(
             body=body, media_body=media).execute()
+
+
         # Only handle the first successful action.
         break
       else:
