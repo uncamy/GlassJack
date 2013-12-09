@@ -72,7 +72,7 @@ class NotifyHandler(webapp2.RequestHandler):
               media = MediaIoBaseUpload(
                 io.BytesIO(content), attachment['contentType'],
                 resumable=True)
-              add_file = send_to_file()
+          #    add_file = send_to_file()
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
