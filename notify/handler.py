@@ -52,18 +52,7 @@ class NotifyHandler(webapp2.RequestHandler):
     elif data.get('collection') == 'timeline':
       self._handle_timeline_notification(data)
 
-  def _handle_locations_notification(self, data):
-    """Handle locations notification."""
-    location = self.mirror_service.locations().get(id=data['itemId']).execute()
-    text = 'New location is %s, %s' % (location.get('latitude'),
-                                       location.get('longitude'))
-    body = {
-        'text': text,
-        'location': location,
-        'menuItems': [{'action': 'NAVIGATE'}],
-        'notification': {'level': 'DEFAULT'}
-    }
-    self.mirror_service.timeline().insert(body=body).execute()
+
 
   def _handle_timeline_notification(self, data):
     """Handle timeline notification."""
@@ -106,7 +95,7 @@ class NotifyHandler(webapp2.RequestHandler):
           #    <footer>\n
           #       <p>Glass Jack</p>\n
           #    </footer>\n</article>",
-          "text": "Glass Jack is processing your image: %s" % attachment['contentUrl'],
+          "text": "Glass Jack is processing your image",
           "notification": {
              "level": "DEFAULT"
           }
@@ -115,13 +104,19 @@ class NotifyHandler(webapp2.RequestHandler):
         self.mirror_service.timeline().insert(
             body=body, media_body=media).execute()
 
-
         # Only handle the first successful action.
         break
       else:
         logging.info(
             "I don't know what to do with this notification: %s", user_action)
 
+  def download_attachments(self, attachment):
+    resp, content = service._http.request(attachment['contentUrl'])
+    if resp.status == 200:
+      return content
+    else:
+      print 'An error occurred: %s' % resp
+      return None
 
 NOTIFY_ROUTES = [
     ('/notify', NotifyHandler)
