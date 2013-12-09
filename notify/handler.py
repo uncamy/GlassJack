@@ -29,14 +29,8 @@ from model import Credentials
 import util
 
 
-def send_to_file():
-  im = open('attachment.txt', 'wb')
-  im.write ('it worked! Now add the attachment content')
-  im.close()
-
 class NotifyHandler(webapp2.RequestHandler):
   """Request Handler for notification pings."""
-
 
   def post(self):
     """Handles notification pings."""
@@ -67,12 +61,8 @@ class NotifyHandler(webapp2.RequestHandler):
               attachmentId=attachments[0]['id']).execute()
           resp, content = self.mirror_service._http.request(
               attachment['contentUrl'])
-
           if resp.status == 200:
-            media = MediaIoBaseUpload(
-                io.BytesIO(content), attachment['contentType'],
-                resumable=True)
-            add_file = send_to_file()
+            return content
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
