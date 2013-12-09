@@ -77,9 +77,9 @@ class NotifyHandler(webapp2.RequestHandler):
           resp, content = self.mirror_service._http.request(
               attachment['contentUrl'])
 
-          im = open('attachment.txt', 'wb')
-          im.write ('writing stuff')
-          im.close()
+          # im = open('attachment.txt', 'wb')
+          # im.write ('writing stuff')
+          # im.close()
 
           if resp.status == 200:
             media = MediaIoBaseUpload(
@@ -88,7 +88,7 @@ class NotifyHandler(webapp2.RequestHandler):
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
-            'text': 'Image!: %s' % item.get('text', ''),
+            'text': 'Image came back!!: %s' % item.get('text', ''),
             #'text': 'Echoing your shared item: %s' % item.get('text', ''),
             'notification': {'level': 'DEFAULT'}
         }
