@@ -2,7 +2,7 @@ import io
 import json
 import logging
 import webapp2
-import test
+import pickMove
 
 from apiclient.http import MediaIoBaseUpload
 from oauth2client.appengine import StorageByKeyName
@@ -44,7 +44,8 @@ class NotifyHandler(webapp2.RequestHandler):
           resp, content = self.mirror_service._http.request(
               attachment['contentUrl'])
           if resp.status == 200:
-            testing = test.say_hi()
+              #testing = pickMove.it_works()
+            testing = pickMove.it_works()
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {

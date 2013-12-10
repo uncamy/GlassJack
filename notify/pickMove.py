@@ -1,5 +1,5 @@
 # determine which card you should play
-import readCard
+#import readCard
 from theBook import card_book
 
 #returned from cardReader --> card 1 and card 2
@@ -45,6 +45,9 @@ def test():
     #assert process_cards(test_ace) == "Stand"
     #assert process_cards(test_double) == "Split"
     return 'Pick Move worked!'
+
+def it_works():
+    return "WOOT WOOT!"
 
 if __name__ == '__main__':
     test()
