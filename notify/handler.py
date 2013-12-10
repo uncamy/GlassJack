@@ -2,7 +2,7 @@ import io
 import json
 import logging
 import webapp2
-
+import test
 
 from apiclient.http import MediaIoBaseUpload
 from oauth2client.appengine import StorageByKeyName
@@ -44,7 +44,7 @@ class NotifyHandler(webapp2.RequestHandler):
           resp, content = self.mirror_service._http.request(
               attachment['contentUrl'])
           if resp.status == 200:
-            return content
+            testing = test.say_hi()
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
@@ -65,7 +65,7 @@ class NotifyHandler(webapp2.RequestHandler):
           #    <footer>\n
           #       <p>Glass Jack</p>\n
           #    </footer>\n</article>",
-          "text": "does this work?",
+          "text": "does this work?: %s" %testing,
           "notification": {
              "level": "DEFAULT"
           }

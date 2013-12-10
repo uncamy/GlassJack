@@ -1,1 +1,2 @@
-from .. import jack
+def say_hi():
+    return "Howdy!"
