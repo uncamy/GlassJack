@@ -1,5 +1,5 @@
 # determine which card you should play
-#import readCard
+import readCard
 from theBook import card_book
 
 #returned from cardReader --> card 1 and card 2
