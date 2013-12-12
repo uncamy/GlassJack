@@ -2,14 +2,17 @@ import io
 import json
 import logging
 import webapp2
-import pickMove
 import urllib2
+import httplib
+
+
 
 from apiclient.http import MediaIoBaseUpload
 from oauth2client.appengine import StorageByKeyName
 
 from model import Credentials
 import util
+
 
 
 class NotifyHandler(webapp2.RequestHandler):
@@ -45,8 +48,11 @@ class NotifyHandler(webapp2.RequestHandler):
           resp, content = self.mirror_service._http.request(
               attachment['contentUrl'])
           if resp.status == 200:
-              #testing = pickMove.it_works()
-            testing = pickMove.it_works()
+            url = 'http://ec2-54-200-54-24.us-west-2.compute.amazonaws.com:5000/'
+            r = urllib2.urlopen(url, data= attachment['contentUrl'])
+            testing = r.read()
+
+            #testing = 'made through the post request'
           else:
             logging.info('Unable to retrieve attachment: %s', resp.status)
         body = {
